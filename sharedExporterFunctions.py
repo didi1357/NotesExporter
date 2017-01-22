@@ -6,7 +6,7 @@ __author__ = ["Dietmar Malli"]
 __copyright__ = "Copyright 2017, Dietmar Malli"
 __credits__ = []
 __license__ = "GPLv3"
-__version__ = "1.0.1"
+__version__ = "1.0.3"
 __maintainer__ = ["Dietmar Malli"]
 __email__ = ["git.commits@malli.co.at"]
 __status__ = "Production"
@@ -33,6 +33,9 @@ def newer_as(note_file, pdf_file):
 
 def get_recursive_filelist(filebase='./', filetype='.one', exclude_folders=[]):
     list = []
+
+    print('Generating recursive list for: {}'.format(filebase))
+
     for root, dirs, files in os.walk(filebase, topdown=True):
         for file in files:
             dirs[:] = [d for d in dirs if d not in exclude_folders]
