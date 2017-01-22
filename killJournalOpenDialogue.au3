@@ -3,7 +3,7 @@
  AutoIt Version: 3.3.14.2
  Copyright:      Licenced under the terms of GPL v3 or later version
  Author:         Dietmar Malli
- Version:        v1.0.1
+ Version:        v1.0.2
 
  Script Function:
 	Kill nonsense with nonsense! I <3 M$!
@@ -15,6 +15,7 @@
 While 0 <> 1 ;forever
   While 0 <> 1 ;more forever
     Sleep(100) ;wait 100ms between tries..
+    $handle = 0
     $english = WinExists("[REGEXPTITLE:(.*Windows Journal*)]", "contain security hazards")
     ; Yes Microsoft, ust add a small dash in the title to annoy people trying to automate that thing :D
     $german = WinExists("[REGEXPTITLE:(.*Windows-Journal*)]", "Sicherheitsrisiken enthalten")
