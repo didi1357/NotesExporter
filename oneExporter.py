@@ -8,7 +8,7 @@ __author__ = ["Dietmar Malli"]
 __copyright__ = "Copyright 2017, Dietmar Malli"
 __credits__ = []
 __license__ = "GPLv3"
-__version__ = "1.0.1"
+__version__ = "1.0.5"
 __maintainer__ = ["Dietmar Malli"]
 __email__ = ["git.commits@malli.co.at"]
 __status__ = "Production"
@@ -16,7 +16,7 @@ __status__ = "Production"
 import os
 import subprocess
 import sys
-from sharedExporterFunctions import get_output_path, newer_as, get_recursive_filelist
+from sharedExporterFunctions import get_output_path, notefile_needs_update, get_recursive_filelist
 
 # Folders to exclude from OneNote file scan:
 folders_to_exclude = ['.dropbox.cache']
@@ -33,10 +33,11 @@ one_list = get_recursive_filelist(filebase=root_folder, exclude_folders=folders_
 for one_file in one_list:
     output_path = get_output_path(one_file)
 
-    if newer_as(one_file, output_path):
-        print('Printing {}'.format(one_file))
+    if notefile_needs_update(one_file, output_path):
+        print('Exporting {}'.format(one_file))
         # Remove old .pdf file first. AutoIT script assumes it to be removed:
-        os.remove(output_path)
+        if os.path.exists(output_path):
+            os.remove(output_path)
         subprocess.call(['exportPDF.exe', one_file, output_path])
 
 # Close OneNote if it is opened:

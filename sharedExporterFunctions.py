@@ -6,7 +6,7 @@ __author__ = ["Dietmar Malli"]
 __copyright__ = "Copyright 2017, Dietmar Malli"
 __credits__ = []
 __license__ = "GPLv3"
-__version__ = "1.0.3"
+__version__ = "1.0.5"
 __maintainer__ = ["Dietmar Malli"]
 __email__ = ["git.commits@malli.co.at"]
 __status__ = "Production"
@@ -17,14 +17,15 @@ def get_output_path(filename):
     basename, _ = os.path.splitext(filename)
     return os.path.abspath(basename + '.pdf')
 
-def newer_as(note_file, pdf_file):
+def notefile_needs_update(note_file, pdf_file):
     if not os.path.exists(note_file):
-        raise Exception('At least file1 must exist.')
+        raise Exception('At least note_file must exist.')
+
+    if not os.path.exists(pdf_file):
+        return True
 
     note_file_time = os.path.getmtime(note_file)
-    pdf_file_time = os.path.getmtime(note_file)  # init var
-    if os.path.exists(pdf_file):
-        pdf_file_time = os.path.getmtime(pdf_file)
+    pdf_file_time = os.path.getmtime(pdf_file)
 
     if pdf_file_time < note_file_time:
         return True

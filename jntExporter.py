@@ -9,7 +9,7 @@ __author__ = ["Dietmar Malli"]
 __copyright__ = "Copyright 2017, Dietmar Malli"
 __credits__ = []
 __license__ = "GPLv3"
-__version__ = "1.0.1"
+__version__ = "1.0.5"
 __maintainer__ = ["Dietmar Malli"]
 __email__ = ["git.commits@malli.co.at"]
 __status__ = "Production"
@@ -19,7 +19,7 @@ import subprocess
 import time
 import shutil
 import sys
-from sharedExporterFunctions import get_output_path, newer_as, get_recursive_filelist
+from sharedExporterFunctions import get_output_path, notefile_needs_update, get_recursive_filelist
 
 # Folders to exclude from jnt scan:
 folders_to_exclude = ['.dropbox.cache']
@@ -51,6 +51,8 @@ subprocess.call(['reg.exe', 'ADD', 'HKEY_CURRENT_USER\\Software\\pdfforge\\PDFCr
 subprocess.call(['reg.exe', 'ADD', 'HKEY_CURRENT_USER\\Software\\pdfforge\\PDFCreator\\Settings\\ConversionProfiles\\0', '/f', '/v', 'FileNameTemplate', '/d', 'temp']) # .pdf is added by pdfcreator..
 
 # Optional PDF-Creator settings:
+subprocess.call(['reg.exe', 'ADD', 'HKEY_CURRENT_USER\\Software\\pdfforge\\PDFCreator\\Settings\\ConversionProfiles\\0\\PdfSettings', '/f', '/v', 'DocumentView', '/d', 'ThumbnailImages'])
+subprocess.call(['reg.exe', 'ADD', 'HKEY_CURRENT_USER\\Software\\pdfforge\\PDFCreator\\Settings\\ConversionProfiles\\0\\PdfSettings', '/f', '/v', 'PageView', '/d', 'OneColumn'])
 subprocess.call(['reg.exe', 'ADD', 'HKEY_CURRENT_USER\\Software\\pdfforge\\PDFCreator\\Settings\\ConversionProfiles\\0\\JpegSettings', '/f', '/v', 'Quality', '/d', '100'])
 subprocess.call(['reg.exe', 'ADD', 'HKEY_CURRENT_USER\\Software\\pdfforge\\PDFCreator\\Settings\\ConversionProfiles\\0\\JpegSettings', '/f', '/v', 'Dpi', '/d', '300'])
 subprocess.call(['reg.exe', 'ADD', 'HKEY_CURRENT_USER\\Software\\pdfforge\\PDFCreator\\Settings\\ConversionProfiles\\0\\PngSettings', '/f', '/v', 'Color', '/d', 'Color32BitTransp'])
@@ -63,8 +65,8 @@ jnt_list = get_recursive_filelist(filebase=root_folder, filetype='.jnt', exclude
 for jnt_file in jnt_list:
     output_path = get_output_path(jnt_file)
 
-    if newer_as(jnt_file, output_path):
-        print('Printing {}'.format(jnt_file))
+    if notefile_needs_update(jnt_file, output_path):
+        print('Exporting {}'.format(jnt_file))
         subprocess.call([journal, '/p', jnt_file])
         temp_pdf = os.path.join(os.environ['TEMP'], 'temp.pdf')
         copy_worked = False
