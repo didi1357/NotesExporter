@@ -1,10 +1,7 @@
 """
 This script accepts a directory as a parameter and will recursively search for
 and convert .jnt files to .pdf files.
-It needs the path of Windows Journal (The new english only, annoying startup
-popup version which was made available after the update which originally
-removed it.)
-Further it needs the path of pdfcreator.
+It needs the path of Windows Journal. Further it needs the path of pdfcreator.
 Another variable can be set to exclude specific directory names from search.
 """
 
@@ -12,7 +9,7 @@ __author__ = ["Dietmar Malli"]
 __copyright__ = "Copyright 2017, Dietmar Malli"
 __credits__ = []
 __license__ = "GPLv3"
-__version__ = "1.0"
+__version__ = "1.0.1"
 __maintainer__ = ["Dietmar Malli"]
 __email__ = ["git.commits@malli.co.at"]
 __status__ = "Production"

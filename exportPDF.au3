@@ -3,6 +3,7 @@
  AutoIt Version: 3.3.14.2
  Copyright:      Licenced under the terms of GPL v3 or later version
  Author:         Dietmar Malli
+ Version:        v1.0.1
 
  Script Function:
 	This script takes a .one file as parameter and will make OneNote export it
@@ -128,7 +129,10 @@ Send("{d}{c}{a}{p}{LALT UP}")
 UnstickKeys()
 
 ;Save as dialogue will appear now.. Wait for it:
-$saveAsHandle = WinWaitActive("Speichern unter", "", 5) ; max 5s
+$saveAsHandle = WinWaitActive("Speichern unter", "", 1) ; max 1s
+If $saveAsHandle = 0 Then
+  $saveAsHandle = WinWaitActive("Save as", "", 1) ; max 1s
+Endif
 If $saveAsHandle = 0 Then
   MsgBox(64, "Error", "Save as dialogue did not appear.")
   Exit
@@ -145,4 +149,3 @@ While 0 <> 1
   EndIf
   Sleep(100)
 WEnd
-

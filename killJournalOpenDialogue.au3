@@ -3,6 +3,7 @@
  AutoIt Version: 3.3.14.2
  Copyright:      Licenced under the terms of GPL v3 or later version
  Author:         Dietmar Malli
+ Version:        v1.0.1
 
  Script Function:
 	Kill nonsense with nonsense! I <3 M$!
@@ -14,14 +15,22 @@
 While 0 <> 1 ;forever
   While 0 <> 1 ;more forever
     Sleep(100) ;wait 100ms between tries..
-    $handle = WinExists("[REGEXPTITLE:(.*Windows Journal*)]", "contain security hazards")
+    $english = WinExists("[REGEXPTITLE:(.*Windows Journal*)]", "contain security hazards")
+    ; Yes Microsoft, ust add a small dash in the title to annoy people trying to automate that thing :D
+    $german = WinExists("[REGEXPTITLE:(.*Windows-Journal*)]", "Sicherheitsrisiken enthalten")
+    If $english <> 0 Then
+      $handle = $english
+    EndIf
+    If $german <> 0 Then
+      $handle = $german
+    EndIf
 	If $handle <> 0 Then
       ExitLoop
     EndIf
   WEnd
   While 0 <> 1
-    WinActivate("[REGEXPTITLE:(.*Windows Journal*)]", "contain security hazards")
-    $succeeded = WinWaitActive("[REGEXPTITLE:(.*Windows Journal*)]", "contain security hazards", 1)
+    WinActivate($handle)
+    $succeeded = WinWaitActive($handle, "", 1)
 	If $succeeded <> 0 Then
       ExitLoop
 	EndIf
@@ -29,4 +38,3 @@ While 0 <> 1 ;forever
   Send("{j}")
   Sleep(100) ;wait 100ms.. programm won't start again within I guess
 WEnd
-

@@ -1,13 +1,15 @@
 # NotesExporter project
-Some scripts to recursively export .jnt and or .one files to .pdf in the same directory. They will also keep the .pdfs up to date with the notefiles by comparing the modification times. PDF export will
-be triggered if the notefile is newer.
+Some scripts to recursively export .jnt and or .one files to .pdf in the same directory. They will also keep the .pdfs up to date with the notefiles by comparing the modification times. PDF export will be triggered if the notefile is newer.
 
 ## Dependencies:
 The Python 3 scripts used to export depend on some AutoIT scripts. Download a release archive from the github.com project page to get them as precompiled executables or compile them yourself but be sure to place them next to the .py scripts with the same name as their source files.
 
 For .jnt export you additionally need:
 * PDF Creator (Tested with version 2.4.1)
-* Windows Journal (The new english only, annoying startup-popup version which was made available after the update which originally removed the software.)
+* Windows Journal
+  * The new annoying startup-popup version which was made available after the update which originally removed the software is also supported, but the AutoIT script wich handles the dialogue assumes the german or english version.
+
+For .one export you will most likely need OneNote 2016. It was tested using the german version, but the english one should also be supported.
 
 ## Installation:
 * Install dependencies first.
